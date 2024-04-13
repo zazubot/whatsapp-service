@@ -1,4 +1,4 @@
-org: eayni
+org: ahmedkhaled4d
 app: zazubot
 service: whatsapp-service
 frameworkVersion: "3"
@@ -18,7 +18,10 @@ provider:
   environment:
     MONGO_URI: ${param:MONGO_URI}
     META_VERIFY_TOKEN: ${param:META_VERIFY_TOKEN}
+    PHONE_NUMBER_ID: ${param:PHONE_NUMBER_ID}
+    META_VERSION: ${param:META_VERSION}
     META_WA_TOKEN: ${param:META_WA_TOKEN}
+    WA_BUSINESS_ID: ${param:WA_BUSINESS_ID}
 
 functions:
   api:
