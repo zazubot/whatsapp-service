@@ -1,0 +1,27 @@
+org: eayni
+app: eayni-backend
+service: client-service
+frameworkVersion: "3"
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  iamRoleStatements:
+    - Effect: Allow
+      Resource: "*"
+      Action:
+        - ses:*
+  environment:
+    MONGO_URI: ${param:MONGO_URI}
+    META_VERIFY_TOKEN: ${param:META_VERIFY_TOKEN}
+    META_WA_TOKEN: ${param:META_WA_TOKEN}
+
+functions:
+  api:
+    handler: src/index.handler
+    events:
+      - httpApi: "*"
