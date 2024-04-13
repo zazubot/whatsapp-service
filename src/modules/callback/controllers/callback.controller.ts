@@ -14,9 +14,9 @@ export const saveWebhookCallback = async (
 ) => {
   try {
     const payload: NotificationPayloadDTO = req.body;
-    // save payload
-    await CallbackModel.create({ payload });
     if (isTextMessage(payload)) {
+      // save payload
+      await CallbackModel.create({ payload });
       await axiosMetaAPI.post("/messages", {
         messaging_product: "whatsapp",
         recipient_type: "individual",
