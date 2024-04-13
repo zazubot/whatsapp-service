@@ -26,7 +26,7 @@ app.use(
 app.use(express.json());
 
 //   webhook endpoint
-app.get("/webhook", webhookRouter);
+app.use("/webhook", webhookRouter);
 
 handleExpressError(app);
 process.on("unhandledRejection", (reason, promise) => {

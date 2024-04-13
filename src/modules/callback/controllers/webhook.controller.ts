@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { UnauthorizedError } from "../../../utils/error";
 
 /**
  * this method for getBanners
@@ -9,9 +10,15 @@ export const verifyWebhook = async (
   next: NextFunction
 ) => {
   try {
-    // Again query all users but only fetch one offset by our random #
-
-    return res.status(200).json({});
+    if (
+      req.query["hub.mode"] &&
+      req.query["hub.verify_token"] === "xHi992hJeX" &&
+      req.query["hub.challenge"]
+    ) {
+      return res.send("ok");
+    } else {
+      throw new UnauthorizedError("verify META Token", res);
+    }
   } catch (error) {
     next(error);
   }
