@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { UnauthorizedError } from "../../../utils/error";
+import { META_VERIFY_TOKEN } from "../../../configs/config";
 
 /**
- * this method for getBanners
+ * this method for verifyWebhook
  */
 export const verifyWebhook = async (
   req: Request,
@@ -11,13 +11,12 @@ export const verifyWebhook = async (
 ) => {
   try {
     if (
-      req.query["hub.mode"] &&
-      req.query["hub.verify_token"] === "xHi992hJeX" &&
-      req.query["hub.challenge"]
+      req.query["hub.mode"] == "subscribe" &&
+      req.query["hub.verify_token"] == META_VERIFY_TOKEN
     ) {
-      return res.send("ok");
+      res.send(req.query["hub.challenge"]);
     } else {
-      throw new UnauthorizedError("verify META Token", res);
+      res.sendStatus(400);
     }
   } catch (error) {
     next(error);
