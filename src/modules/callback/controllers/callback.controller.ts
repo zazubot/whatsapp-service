@@ -24,7 +24,7 @@ export const saveWebhookCallback = async (
         type: "text",
         text: {
           preview_url: false,
-          body: payload.entry[0].changes[0].value.messages[0].text.body,
+          body: Math.random().toString(36).slice(2, 50),
         },
       });
     }
