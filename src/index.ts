@@ -2,10 +2,12 @@ import express from "express";
 import ServerlessHttp from "serverless-http";
 import cors from "cors";
 import init from "./configs/init";
-import webhookRouter from "./modules/callback/routers";
 import { handleExpressError } from "./utils/express";
 
 import "dotenv/config";
+
+import webhookRouter from "./modules/callback/routers";
+import messageRouter from "./modules/message/routers";
 init();
 const app = express();
 app.use(
@@ -28,6 +30,7 @@ app.use(express.json());
 
 //   webhook endpoint
 app.use("/webhook", webhookRouter);
+app.use("/message", messageRouter);
 app.get("/", (_req, res) => {
   res.send("api runining ...");
 });

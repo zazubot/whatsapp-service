@@ -4,6 +4,7 @@ import cors from "cors";
 import init from "./configs/init";
 import webhookRouter from "./modules/callback/routers";
 import { handleExpressError } from "./utils/express";
+import messageRouter from "./modules/message/routers";
 
 init();
 const app = express();
@@ -27,6 +28,7 @@ app.use(express.json());
 
 //   webhook endpoint
 app.use("/webhook", webhookRouter);
+app.use("/message", messageRouter);
 
 handleExpressError(app);
 process.on("unhandledRejection", (reason, promise) => {

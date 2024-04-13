@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { NotificationPayloadDTO } from "../../../types/NotificationPayload.type";
 import { CallbackModel } from "../../../models/callback.model";
-import axiosMetaAPI from "../../../services/api.services";
-import { isTextMessage } from "../../../utils/messageType";
 
 /**
  * this method for verifyWebhook
@@ -14,20 +12,9 @@ export const saveWebhookCallback = async (
 ) => {
   try {
     const payload: NotificationPayloadDTO = req.body;
-    if (isTextMessage(payload)) {
-      // save payload
-      await CallbackModel.create({ payload });
-      await axiosMetaAPI.post("/messages", {
-        messaging_product: "whatsapp",
-        recipient_type: "individual",
-        to: payload.entry[0]?.changes[0]?.value?.messages[0]?.from,
-        type: "text",
-        text: {
-          preview_url: false,
-          body: Math.random().toString(36).slice(2, 50),
-        },
-      });
-    }
+    console.log(JSON.stringify(payload, null, 4));
+    await CallbackModel.create({ payload });
+    res.status(200);
   } catch (error) {
     next(error);
   }
