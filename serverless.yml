@@ -1,6 +1,6 @@
 org: eayni
-app: eayni-backend
-service: client-service
+app: zazubot
+service: whatsapp-service
 frameworkVersion: "3"
 
 plugins:
