@@ -43,7 +43,7 @@ interface StatusObject {
   timestamp: Date;
 }
 
-interface MessageObject {
+export interface MessageObject {
   from: string;
   id: string;
 
