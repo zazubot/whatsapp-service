@@ -1,4 +1,6 @@
-type TypeOfMessage =
+export type Direction = "outbound" | "inbound";
+
+export type TypeOfMessage =
   | "audio"
   | "button"
   | "document"
@@ -11,7 +13,7 @@ type TypeOfMessage =
   | "video"
   | "interactive";
 
-type TypeOfStatus = "delivered" | "read" | "sent";
+export type TypeOfStatus = "delivered" | "read" | "sent" | "init";
 
 interface ErrorObject {
   code: number;

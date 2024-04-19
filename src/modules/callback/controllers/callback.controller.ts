@@ -2,6 +2,12 @@ import { Request, Response, NextFunction } from "express";
 import { NotificationPayloadDTO } from "../../../types/NotificationPayload.type";
 import { CallbackModel } from "../../../models/callback.model";
 import { MessageModel } from "../../../models/messages.model";
+import {
+  isInboundMessage,
+  isOutboundMessage,
+} from "../../../utils/messageType";
+import { handelInboundMessages } from "../../../services/inbound.services";
+import { handelOutboundMessages } from "../../../services/outbound.services";
 
 /**
  * this method for verifyWebhook
@@ -14,43 +20,22 @@ export const saveWebhookCallback = async (
   try {
     const payload: NotificationPayloadDTO = req.body;
     res.sendStatus(200);
-    // console.log(JSON.stringify(payload, null, 4));
-    console.log("Hit API ...");
+    console.log("\x1b[33m", JSON.stringify(payload, null, 4));
     if (req.body.object) {
+      await CallbackModel.create({ payload });
       // inbound Messages
-      if (
-        payload.entry &&
-        payload.entry[0].changes &&
-        payload.entry[0].changes[0] &&
-        payload.entry[0].changes[0].value.messages &&
-        payload.entry[0].changes[0].value.messages[0]
-      ) {
-        const message = payload.entry[0].changes[0].value.messages[0];
-        console.log(
-          "\x1b[33m",
-          JSON.stringify(payload.entry[0].changes[0].value.messages[0], null, 4)
-        );
-        await MessageModel.create({
-          _id: message.id,
-          message,
-          direction: "inbound",
-        });
+      if (isInboundMessage(payload)) {
+        await handelInboundMessages(payload);
+      }
+      // Outbound Messages
+      if (isOutboundMessage(payload)) {
+        // callback for
+        await handelOutboundMessages(payload);
+        // console.log("\x1b[32m", JSON.stringify({  }, null, 4));
       }
     }
-    // Outbound Messages
-    if (
-      payload.entry &&
-      payload.entry[0].changes &&
-      payload.entry[0].changes[0] &&
-      payload.entry[0].changes[0].value.statuses &&
-      payload.entry[0].changes[0].value.statuses[0]
-    ) {
-      // callback for
-      const { id, status } = payload.entry[0].changes[0].value.statuses[0];
-      console.log("\x1b[32m", JSON.stringify({ id, status }, null, 4));
-    }
-    await CallbackModel.create({ payload });
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.sendStatus(200);
   }
 };

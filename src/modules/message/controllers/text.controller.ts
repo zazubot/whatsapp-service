@@ -1,24 +1,15 @@
 import { Request, Response, NextFunction } from "express";
-import axiosMetaAPI from "../../../services/api.services";
+import { sendTextFormat } from "../../../services/outbound.services";
 
 export const sendTextMessage = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
+  const { to, text } = req.body;
   try {
-    const { to, text } = req.body;
     if (to && text) {
-      const { data } = await axiosMetaAPI.post("/messages", {
-        messaging_product: "whatsapp",
-        recipient_type: "individual",
-        to,
-        type: "text",
-        text: {
-          preview_url: false,
-          body: text,
-        },
-      });
+      const data = await sendTextFormat(to, text);
       res.send(data);
     }
   } catch (error) {
