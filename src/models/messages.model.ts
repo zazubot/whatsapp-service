@@ -27,6 +27,7 @@ const MessageSchema = new Schema(
         "order",
       ],
     },
+    profile: Object,
     text: Object,
     audio: Object,
     image: Object,

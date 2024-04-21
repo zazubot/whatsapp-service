@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { NotificationPayloadDTO } from "../../../types/NotificationPayload.type";
 import { CallbackModel } from "../../../models/callback.model";
-import { MessageModel } from "../../../models/messages.model";
 import {
   isInboundMessage,
   isOutboundMessage,
@@ -29,9 +28,7 @@ export const saveWebhookCallback = async (
       }
       // Outbound Messages
       if (isOutboundMessage(payload)) {
-        // callback for
         await handelOutboundMessages(payload);
-        // console.log("\x1b[32m", JSON.stringify({  }, null, 4));
       }
     }
   } catch (error) {
