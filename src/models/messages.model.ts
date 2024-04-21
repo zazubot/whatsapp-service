@@ -1,27 +1,13 @@
 import mongoose, { Schema } from "mongoose";
 import { mongoosePagination, Pagination } from "mongoose-paginate-ts";
-import {
-  TypeOfMessage,
-  Direction,
-  TypeOfStatus,
-} from "../types/NotificationPayload.type";
+import { MessageObject } from "../types/NotificationPayload.type";
 
-type Message = mongoose.Document & {
-  wa_id: string;
-  message_id: string;
-  type: TypeOfMessage;
-  status: TypeOfStatus;
-  dir: Direction;
-  text?: string;
-  media?: string;
-};
+export type Message = mongoose.Document & MessageObject;
 
 const MessageSchema = new Schema(
   {
-    text: String,
-    media: String,
-    wa_id: { type: String, required: true },
-    message_id: { type: String, unique: true },
+    from: { type: String, required: true },
+    id: { type: String, unique: true },
     dir: {
       type: String,
       required: true,
@@ -41,6 +27,15 @@ const MessageSchema = new Schema(
         "order",
       ],
     },
+    text: Object,
+    audio: Object,
+    image: Object,
+    video: Object,
+    sticker: Object,
+    button: Object,
+    context: Object,
+    document: Object,
+    interactive: Object,
     status: {
       type: String,
       required: true,

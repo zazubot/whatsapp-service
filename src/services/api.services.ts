@@ -14,4 +14,14 @@ const axiosMetaAPI = axios.create({
   },
 });
 
-export default axiosMetaAPI;
+const mediaURL: string = `https://graph.facebook.com/${META_VERSION}`;
+const axiosMetaMediaAPI = axios.create({
+  baseURL: mediaURL,
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${META_WA_TOKEN}`,
+    "User-Agent": "node",
+  },
+});
+
+export { axiosMetaAPI, axiosMetaMediaAPI };

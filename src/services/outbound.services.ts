@@ -1,6 +1,6 @@
 import { MessageModel } from "../models/messages.model";
 import { NotificationPayloadDTO } from "../types/NotificationPayload.type";
-import axiosMetaAPI from "./api.services";
+import { axiosMetaAPI } from "./api.services";
 
 export const handelOutboundMessages = async (
   payload: NotificationPayloadDTO
@@ -8,7 +8,7 @@ export const handelOutboundMessages = async (
   try {
     const { id, status } = payload.entry[0]?.changes[0]?.value?.statuses[0];
     if (id) {
-      await MessageModel.findOneAndUpdate({ message_id: id }, { status });
+      await MessageModel.findOneAndUpdate({ id }, { status });
     }
   } catch (e) {
     console.error(e);
@@ -29,22 +29,22 @@ export const sendTextFormat = async (to: string, text: string) => {
     });
     if (data) {
       await MessageModel.create({
-        message_id: data.messages[0].id,
-        text,
+        id: data.messages[0].id,
+        from: data.contacts[0].wa_id,
+        text: { body: text },
         status: "init",
         type: "text",
         dir: "outbound",
-        wa_id: data.contacts[0].wa_id,
       });
     }
     return data;
   } catch (error) {
     await MessageModel.create({
-      text,
+      text: { body: text },
       status: "init",
       type: "text",
       dir: "outbound",
-      wa_id: to,
+      id: to,
     });
   }
 };
