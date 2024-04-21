@@ -1,18 +1,26 @@
 import mongoose, { Schema } from "mongoose";
 
 type Contacts = mongoose.Document & {
-  id: string;
-  profile: {
-    name: string;
-    email: string;
-    phone_id: string;
-  };
-  wa_id: string;
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+  company: string;
+  target: string;
+  gender: string;
+  language: string;
+  interests: string[];
 };
 
 const ContactsSchema = new Schema(
   {
-    payload: Object,
+    name: String,
+    phone: String,
+    email: String,
+    address: String,
+    company: String,
+    target: String,
+    interests: Array,
   },
   { timestamps: true }
 );
