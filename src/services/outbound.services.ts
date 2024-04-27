@@ -15,7 +15,7 @@ export const handelOutboundMessages = async (
   }
 };
 
-export const sendTextFormat = async (to: string, text: string) => {
+export const sendTextMessage = async (to: string, text: string) => {
   try {
     const { data } = await axiosMetaAPI.post("/messages", {
       messaging_product: "whatsapp",
@@ -43,6 +43,37 @@ export const sendTextFormat = async (to: string, text: string) => {
       text: { body: text },
       status: "init",
       type: "text",
+      dir: "outbound",
+      id: to,
+    });
+  }
+};
+
+export const sendTextTemplate = async (to: string, template: object) => {
+  try {
+    const { data } = await axiosMetaAPI.post("/messages", {
+      messaging_product: "whatsapp",
+      recipient_type: "individual",
+      to,
+      type: "template",
+      template,
+    });
+    if (data) {
+      await MessageModel.create({
+        id: data.messages[0].id,
+        from: data.contacts[0].wa_id,
+        template,
+        status: "init",
+        type: "template",
+        dir: "outbound",
+      });
+    }
+    return data;
+  } catch (error) {
+    await MessageModel.create({
+      template,
+      status: "init",
+      type: "template",
       dir: "outbound",
       id: to,
     });

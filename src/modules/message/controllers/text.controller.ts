@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { sendTextFormat } from "../../../services/outbound.services";
+import {
+  sendTextMessage,
+  sendTextTemplate,
+} from "../../../services/outbound.services";
 
-export const sendTextMessage = async (
+export const TextMessage = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -9,7 +12,23 @@ export const sendTextMessage = async (
   const { to, text } = req.body;
   try {
     if (to && text) {
-      const data = await sendTextFormat(to, text);
+      const data = await sendTextMessage(to, text);
+      res.send(data);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const TemplateMessage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { to, template } = req.body;
+  try {
+    if (to && template) {
+      const data = await sendTextTemplate(to, template);
       res.send(data);
     }
   } catch (error) {

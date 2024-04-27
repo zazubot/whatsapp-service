@@ -1,7 +1,8 @@
 import express from "express";
-import { sendTextMessage } from "../controllers/text.controller";
+import { TextMessage, TemplateMessage } from "../controllers/text.controller";
 
 const messageRouter = express.Router();
-messageRouter.post("/text", sendTextMessage);
+messageRouter.post("/text/message", TextMessage);
+messageRouter.post("/text/template", TemplateMessage);
 
 export default messageRouter;

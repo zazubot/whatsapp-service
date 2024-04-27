@@ -29,6 +29,7 @@ const MessageSchema = new Schema(
     },
     profile: Object,
     text: Object,
+    template: Object,
     audio: Object,
     image: Object,
     video: Object,
