@@ -6,7 +6,10 @@ import {
   isOutboundMessage,
 } from "../../../utils/messageType";
 import { handelInboundMessages } from "../../../services/inbound.services";
-import { handelOutboundMessages } from "../../../services/outbound.services";
+import {
+  handelOutboundMessages,
+  sendTextMessage,
+} from "../../../services/outbound.services";
 
 /**
  * this method for verifyWebhook
@@ -25,6 +28,13 @@ export const saveWebhookCallback = async (
       // inbound Messages
       if (isInboundMessage(payload)) {
         await handelInboundMessages(payload);
+        if (payload.entry[0]?.changes[0]?.value?.messages[0].text.body) {
+          await sendTextMessage(
+            payload.entry[0]?.changes[0]?.value?.messages[0]?.from,
+            "Thanks for your message 🌹" +
+              payload.entry[0]?.changes[0]?.value?.messages[0].text.body
+          );
+        }
       }
       // Outbound Messages
       if (isOutboundMessage(payload)) {
