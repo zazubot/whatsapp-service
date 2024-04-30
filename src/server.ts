@@ -5,6 +5,7 @@ import init from "./configs/init";
 import webhookRouter from "./modules/callback/routers";
 import { handleExpressError } from "./utils/express";
 import messageRouter from "./modules/message/routers";
+import portalRouter from "./modules/portal/routers";
 
 init();
 const app = express();
@@ -29,6 +30,7 @@ app.use(express.json());
 //   webhook endpoint
 app.use("/webhook", webhookRouter);
 app.use("/message", messageRouter);
+app.use("/portal", portalRouter);
 app.get("/", (_req, res) => {
   res.send({ health: "Api status working (whatsapp services) .." });
 });
