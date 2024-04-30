@@ -29,11 +29,9 @@ app.use(express.json());
 //   webhook endpoint
 app.use("/webhook", webhookRouter);
 app.use("/message", messageRouter);
-
 app.get("/", (req, res) => {
   res.send({ health: "Api working .." });
 });
-
 handleExpressError(app);
 process.on("unhandledRejection", (reason, promise) => {
   console.error("unhandledRejection:", reason);
