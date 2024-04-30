@@ -29,8 +29,8 @@ app.use(express.json());
 //   webhook endpoint
 app.use("/webhook", webhookRouter);
 app.use("/message", messageRouter);
-app.get("/", (req, res) => {
-  res.send({ health: "Api working .." });
+app.get("/", (_req, res) => {
+  res.send({ health: "Api status working (whatsapp services) .." });
 });
 handleExpressError(app);
 process.on("unhandledRejection", (reason, promise) => {
