@@ -18,7 +18,7 @@ export const generateResponseFromKnowledge = async (
     const params: OpenAI.Chat.ChatCompletionCreateParams = {
       messages,
       model: "gpt-3.5-turbo",
-      max_tokens: 150,
+      max_tokens: 350,
     };
     const chatCompletion: OpenAI.Chat.ChatCompletion =
       await openai.chat.completions.create(params);
