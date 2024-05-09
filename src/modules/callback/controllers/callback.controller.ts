@@ -10,6 +10,7 @@ import {
   handelOutboundMessages,
   sendTextMessage,
 } from "../../../services/outbound.services";
+import { generateResponseFromKnowledge } from "../../../services/openai.services";
 
 /**
  * this method for verifyWebhook
@@ -29,11 +30,15 @@ export const saveWebhookCallback = async (
       if (isInboundMessage(payload)) {
         await handelInboundMessages(payload);
         if (payload.entry[0]?.changes[0]?.value?.messages[0].text.body) {
-          await sendTextMessage(
-            payload.entry[0]?.changes[0]?.value?.messages[0]?.from,
-            "Thanks for your message 🌹" +
-              payload.entry[0]?.changes[0]?.value?.messages[0].text.body
+          const reply = await generateResponseFromKnowledge(
+            payload.entry[0]?.changes[0]?.value?.messages[0].text.body
           );
+          if (reply !== undefined && reply !== null) {
+            await sendTextMessage(
+              payload.entry[0]?.changes[0]?.value?.messages[0]?.from,
+              reply
+            );
+          }
         }
       }
       // Outbound Messages
