@@ -33,7 +33,7 @@ interface ContactObject {
 
 interface MetadataObject {
   display_phone_number: string;
-  phone_number_id: string;
+  WA_PHONE_NUMBER_ID: string;
 }
 interface StatusObject {
   id: string;
