@@ -53,6 +53,7 @@ import { docsRouter } from './config/scala.config';
 import { ProviderFiles } from './provider/sessions';
 import { Websocket } from './websocket/server';
 import { createServer } from 'http';
+import cors from 'cors';
 
 export function describeRoutes(
   rootPath: string,
@@ -85,6 +86,8 @@ export enum HttpStatus {
 
 export async function AppModule(context: Map<string, any>) {
   const app = express();
+  app.use(cors());
+
   const server = createServer(app);
 
   const configService = new ConfigService();
