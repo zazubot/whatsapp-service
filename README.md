@@ -5,11 +5,11 @@
  
 </div>
   
-<div align="center"><img src="./public/images/cover.png"></div>
+<div align="center"><img src="./public/images/1cover.png"></div>
 
 ## Project Structure
 
-- [Look here](./PROJECT_STRUCTURE.md)
+NOT IMPLEMENTED
 
 ## WhatsApp-Api-NodeJs
 
