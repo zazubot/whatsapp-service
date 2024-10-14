@@ -167,8 +167,8 @@ docker-compose up
 
 ## Send Messages
 
-|                                                                             |                         |
-| --------------------------------------------------------------------------- | ----------------------- |
+|                                                                             |                        |
+| --------------------------------------------------------------------------- | ---------------------- |
 | Send Text                                                                   | ✔                      |
 | Send Buttons                                                                | ✔ only \[ios,android\] |
 | Send Media: audio - video - image - document - gif <br></br>base64: `false` | ✔                      |
@@ -177,56 +177,6 @@ docker-compose up
 | Send Audio type WhatsApp - File                                             | ✔                      |
 | Send Location                                                               | ✔                      |
 | Send List                                                                   | ✔ only \[ios,android\] |
-| Send Link Preview                                                           | ❌                      |
+| Send Link Preview                                                           | ❌                     |
 | Send Contact                                                                | ✔                      |
 | Send Reaction - emoji                                                       | ✔                      |
-
-## Postman collections
-
-- [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/codechat/codechat-api/overview)
-
-## Webhook Events
-
-| Name                      | Event                     | TypeData | Description                                                                                                                  |
-| ------------------------- | ------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- | ----------- | ----------- | ----------- | -------- |
-| QRCODE_UPDATED            | qrcode.updated            | json     | Sends the base64 of the qrcode for reading                                                                                   |
-| CONNECTION_UPDATE         | connection.update         | json     | Informs the status of the connection with whatsapp                                                                           |
-| MESSAGES_SET              | message.set               | json     | Sends a list of all your messages uploaded on whatsapp</br>This event occurs only once                                       |
-| MESSAGES_UPSERT           | message.upsert            | json     | Notifies you when a message is received                                                                                      |
-| MESSAGES_UPDATE           | message.update            | json     | Tells you when a message is updated                                                                                          |
-| SEND_MESSAGE              | send.message              | json     | Notifies when a message is sent                                                                                              |
-| CONTACTS_SET              | contacts.set              | json     | Performs initial loading of all contacts</br>This event occurs only once                                                     |
-| CONTACTS_UPSERT           | contacts.upsert           | json     | Reloads all contacts with additional information</br>This event occurs only once                                             |
-| CONTACTS_UPDATE           | contacts.update           | json     | Informs you when the chat is updated                                                                                         |
-| PRESENCE_UPDATE           | presence.update           | json     | Informs if the user is online, if he is performing some action like writing or recording and his last seen</br>'unavailable' | 'available' | 'composing' | 'recording' | 'paused' |
-| CHATS_SET                 | chats.set                 | json     | Send a list of all loaded chats                                                                                              |
-| CHATS_UPDATE              | chats.update              | json     | Informs you when the chat is updated                                                                                         |
-| CHATS_UPSERT              | chats.upsert              | json     | Sends any new chat information                                                                                               |
-| GROUPS_UPSERT             | groups.upsert             | JSON     | Notifies when a group is created                                                                                             |
-| GROUPS_UPDATE             | groups.update             | JSON     | Notifies when a group has its information updated                                                                            |
-| GROUP_PARTICIPANTS_UPDATE | group-participants.update | JSON     | Notifies when an action occurs involving a participant</br>'add'                                                             | 'remove'    | 'promote'   | 'demote'    |
-| NEW_TOKEN                 | new.jwt                   | JSON     | Notifies when the token (jwt) is updated                                                                                     |
-
-## SSL
-
-To install the SSL certificate, follow the **[instructions](https://certbot.eff.org/instructions?ws=other&os=ubuntufocal)** below.
-
-# Note
-
-This code is in no way affiliated with WhatsApp. Use at your own discretion. Don't spam this.
-
-This code was produced based on the baileys library and it is still under development.
-
-# Donate to the project.
-
-#### Pix: 2b526ada-4ef4-4db4-bbeb-f60da2421fce
-
-#### PicPay
-
-<div align="center">
-  <a href="https://app.picpay.com/user/cleber.wilson.oliveira" target="_blank" rel="noopener noreferrer">
-    <img src="./public/images/picpay-image.png" style="width: 50% !important;">
-  </a>
-</div>
-
-</br>
