@@ -27,25 +27,9 @@ export const sendTextMessage = async (to: string, text: string) => {
         body: text,
       },
     });
-    if (data) {
-      await MessageModel.create({
-        id: data.messages[0].id,
-        from: data.contacts[0].wa_id,
-        text: { body: text },
-        status: "init",
-        type: "text",
-        dir: "outbound",
-      });
-    }
     return data;
   } catch (error) {
-    await MessageModel.create({
-      text: { body: text },
-      status: "init",
-      type: "text",
-      dir: "outbound",
-      id: to,
-    });
+    throw error;
   }
 };
 

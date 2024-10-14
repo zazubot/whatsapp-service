@@ -11,7 +11,7 @@ export const handelInboundMessages = async (
       ...message,
       dir: "inbound",
       status: "read",
-      profile,
+      from: profile,
     });
   } catch (e) {
     console.error(e);
