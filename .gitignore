@@ -2,9 +2,8 @@
 /dist
 /node_modules
 
-
 # Logs
-logs
+logs/**.json
 *.log
 npm-debug.log*
 pnpm-debug.log*
@@ -12,11 +11,10 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# Package
+/yarn.lock
+/package-lock.json
 
-# OS
-.DS_Store
-
- 
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
@@ -24,7 +22,8 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# enviroments
+# Project related
+/instances/*
+!/instances/.gitkeep
+/test/
 .env
-.env.development
-.env.development.local
